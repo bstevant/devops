@@ -1,0 +1,14 @@
+- hosts: service
+  remote_user: vagrant
+  sudo: yes
+  vars:
+    - container_image: wordpress
+    - container_name: wordpress
+    - http_address: /wp
+    - has_db: true
+  roles:
+    - docker
+    - consul
+    - swarm
+    - nginx
+    - service

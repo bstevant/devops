@@ -1,0 +1,7 @@
+upstream {{ alias }}{{ container_name }} {
+    {% raw %}{{{% endraw %}range service "{{ alias }}{{ container_name }}" "any" {% raw %}}}{% endraw %}
+
+    server {% raw %} {{.Address}}:{{.Port}};
+    {{end}}{% endraw %}
+
+}

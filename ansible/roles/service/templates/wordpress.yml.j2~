@@ -1,0 +1,30 @@
+db:
+  ports:
+    - 27017
+  environment:
+    - MYSQL_DATABASE={{ alias }}wordpress
+    - MYSQL_USER={{ alias }}wordpress
+    - MYSQL_PASSWORD={{ alias }}password
+    - MYSQL_ROOT_PASSWORD={{ alias }}password
+    - SERVICE_ID={{ alias }}books-service-db
+  image: mariadb
+
+wordpress:
+  ports:
+    - 8080
+  environment:
+    - SERVICE_NAME={{ alias }}wordpress
+    - DB_PORT_27017_TCP= {% raw %}{{{% endraw %} key "services/mariadb/{{ alias }}wordpress-db" {% raw %}}}{% endraw %}
+    - WORDPRESS_DB_USER={{ alias }}wordpress
+    - WORDPRESS_DB_PASSWORD={{ alias }}password
+    - WORDPRESS_DB_NAME={{ alias }}wordpress
+
+  image: wordpress
+  links:
+    - db:mysql
+
+
+
+
+
+ 

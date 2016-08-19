@@ -1,0 +1,10 @@
+[defaults]
+callback_plugins=/etc/ansible/callback_plugins/
+host_key_checking=False
+deprecation_warnings=False
+remote_tmp     = /tmp/${USER}/ansible
+
+[privilege_escalation]
+become=True
+become_method=sudo
+become_user=root

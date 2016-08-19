@@ -1,0 +1,13 @@
+- hosts: service
+  remote_user: vagrant
+  sudo: yes
+  vars:
+    - container_image: books-fe
+    - container_name: books-fe
+    - http_address: /
+  roles:
+    - docker
+    - consul
+    - swarm
+    - nginx
+    - service
