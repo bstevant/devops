@@ -11,7 +11,7 @@ db:
 
 wordpress:
   ports:
-    - 8080
+    - 8080:80
   environment:
     - SERVICE_NAME={{ alias }}wordpress
     - DB_PORT_27017_TCP= {% raw %}{{{% endraw %} key "services/mariadb/{{ alias }}wordpress-db" {% raw %}}}{% endraw %}
