@@ -1,6 +1,7 @@
 jenkins_base_dir: /data/jenkins
 
 jenkins_jobs: [
-  { src: "build.xml.j2", dest: "wordpress", app: "wordpress" }
+  { src: "build.xml.j2", dest: "wordpress", app: "wordpress" },
+  { src: "build.xml.j2", dest: "node-gallery", app: "node-gallery" }
   
 ]

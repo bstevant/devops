@@ -1,0 +1,15 @@
+- hosts: service
+  remote_user: vagrant
+  sudo: yes
+  vars:
+    - container_image: bstevant/node-gallery
+    - container_name: node-gallery
+    - http_address: /gallery/
+    - has_db: true
+    - service_instances: 2
+  roles:
+    - docker
+    - consul
+    - swarm
+    - nginx
+    - service_gallerie

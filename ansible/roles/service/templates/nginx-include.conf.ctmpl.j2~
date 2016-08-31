@@ -1,0 +1,3 @@
+location {{ http_address }} {
+  proxy_pass http://{{ alias }}{{ host }}{{ http_address }};
+}

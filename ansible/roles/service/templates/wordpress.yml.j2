@@ -6,12 +6,12 @@ db:
     - MYSQL_USER={{ alias }}wordpress
     - MYSQL_PASSWORD={{ alias }}password
     - MYSQL_ROOT_PASSWORD={{ alias }}password
-    - SERVICE_ID={{ alias }}books-service-db
+    - SERVICE_ID={{ alias }}wordpress-db
   image: mariadb
 
 wordpress:
   ports:
-    - 8080
+    - 8080:80
   environment:
     - SERVICE_NAME={{ alias }}wordpress
     - DB_PORT_27017_TCP= {% raw %}{{{% endraw %} key "services/mariadb/{{ alias }}wordpress-db" {% raw %}}}{% endraw %}
