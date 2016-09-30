@@ -1,2 +1,5 @@
 # vi temp files
 .*~ 
+
+# vagrant
+.vagrant

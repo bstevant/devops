@@ -1,23 +1,23 @@
 [compose]
-10.100.199.200
+fog03n0.ipv6.enstb.fr
 
 [consul]
-10.100.199.200
-10.100.199.201
-10.100.199.202
-10.100.199.203
+fog03n0.ipv6.enstb.fr
+fog03n1.ipv6.enstb.fr
+fog03n2.ipv6.enstb.fr
+fog03n3.ipv6.enstb.fr
 
 [jenkins]
-10.100.199.200
+fog03n0.ipv6.enstb.fr
 
 [nginx]
-10.100.199.200
+fog03n0.ipv6.enstb.fr
 
 [service]
-10.100.199.200
+fog03n0.ipv6.enstb.fr
 
 [swarm]
-10.100.199.201
-10.100.199.202
-10.100.199.203
-10.100.199.200
+fog03n1.ipv6.enstb.fr
+fog03n2.ipv6.enstb.fr
+fog03n3.ipv6.enstb.fr
+fog03n0.ipv6.enstb.fr
