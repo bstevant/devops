@@ -60,7 +60,7 @@
       - /var/run/docker.sock:/tmp/docker.sock
     hostname: "{{ hostname }}"
     image: gliderlabs/registrator
-    command: -ip {{ ip }} consul://{{ ip }}:8500
+    command: -ip {{ ip }} consul://{{ hostname }}:8500
   tags: [consul]
 
 - name: Registrator KV is running

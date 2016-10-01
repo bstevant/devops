@@ -36,11 +36,21 @@
   when: config_result|changed
   tags: [swarm]
 
+- name: IPv6 forwarding is activated
+  shell: sysctl -w net.ipv6.conf.all.forwarding=1 net.ipv6.conf.eth1.accept_ra=2
+  when: config_result|changed
+  tags: [swarm]
+ 
+- name: IPv6 NAT66 is configured
+  shell: ip6tables -t nat -A POSTROUTING -o eth1 -s fdd7:d924:3d5f:d0c4::/64 -j MASQUERADE
+  when: config_result|changed
+  tags: [swarm]
+
 - name: Swarm node is running
   docker:
     name: swarm-node
     image: swarm
-    command: join --advertise={{ ip }}:2375 consul://{{ ip }}:8500/swarm
+    command: join --advertise={{ ip }}:2375 consul://{{ consul_master_ip }}:8500/swarm
   when: not swarm_master is defined
   tags: [swarm]
 
@@ -49,7 +59,7 @@
     name: swarm-master
     image: swarm
     ports: 2375:2375
-    command: manage consul://{{ ip }}:8500/swarm
+    command: -l debug manage consul://{{ hostname }}:8500/swarm
     env:
       SERVICE_ID: swarm-master
   when: swarm_master is defined
