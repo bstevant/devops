@@ -58,9 +58,17 @@
 - name: Debian daemon is present
   apt: name=daemon state=present
 
+- name: Check if Docker-NAT66 is running
+  command: daemon -n docker-nat66 --running
+  ignore_errors: yes
+  changed_when: false
+  register: dockernat66_status
+  tags: [swarm]
+
 - name: Docker-NAT66 is started
-  shell: daemon -n docker-nat66 -- /usr/local/bin/docker-nat66 -dev {{ egress_if }} -prefix fdd7:d924:3d5f:d0c4::/64
-  when: config_result|changed
+  debug: msg="/usr/bin/daemon -n docker-nat66 -- /usr/local/bin/docker-nat66 -dev {{ egress_if }} -prefix fdd7:d924:3d5f:d0c4::/64"
+  shell: /usr/bin/daemon -n docker-nat66 -- /usr/local/bin/docker-nat66 -dev {{ egress_if }} -prefix fdd7:d924:3d5f:d0c4::/64
+  when: dockernat66_status | failed
   tags: [swarm]
 
 - name: Swarm node is running
