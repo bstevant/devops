@@ -58,9 +58,8 @@
     name: registrator
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
-    hostname: "{{ hostname }}"
     image: gliderlabs/registrator
-    command: -ip {{ ip }} consul://{{ hostname }}:8500
+    command: -ip={{ ip }} consul://{{ hostname }}:8500
   tags: [consul]
 
 - name: Registrator KV is running
@@ -68,7 +67,6 @@
     name: registrator-kv
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
-    hostname: "{{ hostname }}"
     image: gliderlabs/registrator
-    command: -ip {{ ip }} consulkv://{{ ip }}:8500/services
+    command: -ip={{ ip }} consulkv://{{ hostname }}:8500/services
   tags: [consul]
