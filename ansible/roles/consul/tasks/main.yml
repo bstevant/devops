@@ -70,3 +70,31 @@
     image: gliderlabs/registrator
     command: -ip={{ ip }} consulkv://{{ hostname }}:8500/services
   tags: [consul]
+
+- name: dnsmasq package is present
+  apt: name=dnsmasq state=present
+
+- name: Check if consul dnsmasq config is present
+  stat: /etc/dnsmasq.d/dnsmasq-consul
+  register: dnsmasqconsul
+
+- name: Copy consul dnsmasq configuration  
+  copy: 
+    src: dnsmasq-consul
+    dest: /etc/dnsmasq.d/dnsmasq-consul
+  when: dnsmasqconsul.stat.isreg is not defined
+
+- name: Dnsmasq Service is started
+  service:
+    name=dnsmasq
+    state=started
+    pattern=/usr/sbin/consul
+  tags: [consul]
+  
+- name: Dnsmasq Service is restarted
+  service:
+    name=dnsmasq
+    state=restarted
+    pattern=/usr/sbin/consul
+  when: dnsmasqconsul.stat.isreg is not defined
+  tags: [consul]
