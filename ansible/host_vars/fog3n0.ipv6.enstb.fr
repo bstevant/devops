@@ -3,3 +3,4 @@ hostname: fog3n0.ipv6.enstb.fr
 ip: 2001:660:7301:51::f090
 consul_extra: -server -bootstrap-expect 1 -ui-dir /data/consul/ui
 swarm_master: true
+egress_if: eth1

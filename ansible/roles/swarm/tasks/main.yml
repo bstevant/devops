@@ -37,12 +37,29 @@
   tags: [swarm]
 
 - name: IPv6 forwarding is activated
-  shell: sysctl -w net.ipv6.conf.all.forwarding=1 net.ipv6.conf.eth1.accept_ra=2
+  shell: sysctl -w net.ipv6.conf.all.forwarding=1 net.ipv6.conf.{{ egress_if }}.accept_ra=2
   when: config_result|changed
   tags: [swarm]
  
-- name: IPv6 NAT66 is configured
-  shell: ip6tables -t nat -A POSTROUTING -o eth1 -s fdd7:d924:3d5f:d0c4::/64 -j MASQUERADE
+- name: Check docker-nat66 file presence
+  stat: path=/usr/local/bin/docker-nat66
+  register: dockernat66
+  tags: [swarm]
+
+- name: Install docker-nat66
+  shell: curl -L https://github.com/bstevant/docker-nat66/releases/download/0.1/nat66-docker > /usr/local/bin/docker-nat66
+  when: dockernat66.stat.exists == false
+  tags: [swarm]
+
+- name: Apply executable permission
+  file: path=/usr/local/bin/docker-nat66 mode="u+x,g+x"
+  tags: [swarm]
+
+- name: Debian daemon is present
+  apt: name=daemon state=present
+
+- name: Docker-NAT66 is started
+  shell: daemon -n docker-nat66 -- /usr/local/bin/docker-nat66 -dev {{ egress_if }} -prefix fdd7:d924:3d5f:d0c4::/64
   when: config_result|changed
   tags: [swarm]
 
