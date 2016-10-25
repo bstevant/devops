@@ -74,7 +74,7 @@
   docker:
     name: swarm-node
     image: swarm
-    command: join --advertise={{ ip }}:2375 consul://{{ consul_master_ip }}:8500/swarm
+    command: join --advertise=[{{ ip }}]:2375 consul://{{ consul_master_ip }}:8500/swarm
   when: not swarm_master is defined
   tags: [swarm]
 
