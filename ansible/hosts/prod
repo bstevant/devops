@@ -1,23 +1,23 @@
 [compose]
-fog3n0.ipv6.enstb.fr
+fog3n0.ipv6.enstb.fr 
 
 [consul]
 fog3n0.ipv6.enstb.fr
-fog3n1.ipv6.enstb.fr
-fog3n2.ipv6.enstb.fr
-fog3n3.ipv6.enstb.fr
+fog4.ipv6.enstb.fr
+fog5.ipv6.enstb.fr
+fog6.ipv6.enstb.fr
 
 [jenkins]
-fog3n0.ipv6.enstb.fr
+fog3n0.ipv6.enstb.fr 
 
 [nginx]
-fog3n0.ipv6.enstb.fr
+fog3n0.ipv6.enstb.fr 
 
 [service]
-fog3n0.ipv6.enstb.fr
+fog3n0.ipv6.enstb.fr 
 
 [swarm]
-fog3n1.ipv6.enstb.fr
-fog3n2.ipv6.enstb.fr
-fog3n3.ipv6.enstb.fr
-fog3n0.ipv6.enstb.fr
+fog4.ipv6.enstb.fr
+fog5.ipv6.enstb.fr
+fog6.ipv6.enstb.fr
+fog3n0.ipv6.enstb.fr 
