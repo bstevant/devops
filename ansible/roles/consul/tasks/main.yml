@@ -75,7 +75,7 @@
   apt: name=dnsmasq state=present
 
 - name: Check if consul dnsmasq config is present
-  stat: /etc/dnsmasq.d/dnsmasq-consul
+  stat: path=/etc/dnsmasq.d/dnsmasq-consul
   register: dnsmasqconsul
 
 - name: Copy consul dnsmasq configuration  
