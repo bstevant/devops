@@ -91,6 +91,10 @@
     pattern=/usr/sbin/consul
   tags: [consul]
   
+- name: Dnsmasq to resolv.conf
+  shell: echo "nameserver {{ ip }}" > /etc/resolv.conf
+  tags: [consul]
+  
 - name: Dnsmasq Service is restarted
   service:
     name=dnsmasq
