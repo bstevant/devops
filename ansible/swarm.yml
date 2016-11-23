@@ -1,6 +1,5 @@
 - hosts: swarm
   serial: 1
-  remote_user: vagrant
   sudo: yes
   roles:
     - docker

@@ -1,5 +1,5 @@
 ansible_ssh_private_key_file: ./.ssh/id_ecdsa
-ansible_ssh_user=fogadmin
+ansible_ssh_user: fogadmin
 hostname: fog6.ipv6.enstb.fr
 ip: 2001:660:7301:51:12bf:48ff:fe9f:45a6
 consul_extra: ""
