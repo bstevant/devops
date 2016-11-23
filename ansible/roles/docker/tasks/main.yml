@@ -1,19 +1,34 @@
+- name: HTTPS for apt
+  apt:
+    name: apt-transport-https
+    state: present
+  tags: [docker]
+
 - name: Debian add Docker repository and update apt cache
+  apt_repository:
+    repo: deb https://apt.dockerproject.org/repo debian-jessie main
+    update_cache: yes
+    state: present
+  when: ansible_distribution == 'Debian'
+  tags: [docker]
+
+- name: Ubuntu add Docker repository and update apt cache
   apt_repository:
     repo: deb https://apt.dockerproject.org/repo ubuntu-trusty main
     update_cache: yes
     state: present
+  when: ansible_distribution == 'Ubuntu'
   tags: [docker]
 
-- name: Debian Docker is present
+- name: Docker is present
   apt:
     name: docker-engine
     state: latest
     force: yes
   tags: [docker]
 
-- name: Debian python-pip is present
-  apt: name=python-pip state=present
+- name: python-pip is present
+  easy_install: name=pip state=latest
   tags: [docker]
 
 - name: Debian docker-py is present
@@ -23,9 +38,9 @@
     state: present
   tags: [docker]
 
-- name: vagrant user is added to the docker group
+- name: Local user is added to the docker group
   user:
-    name: vagrant
+    name: "{{ ansible_user_id }}"
     group: docker
   register: user_result
   tags: [docker]

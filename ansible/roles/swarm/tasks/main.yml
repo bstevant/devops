@@ -47,7 +47,9 @@
   tags: [swarm]
 
 - name: Install docker-nat66
-  shell: curl -L https://github.com/bstevant/docker-nat66/releases/download/0.1/nat66-docker > /usr/local/bin/docker-nat66
+  get_url:
+    url: https://github.com/bstevant/docker-nat66/releases/download/0.1/nat66-docker
+    dest: /usr/local/bin/docker-nat66
   when: dockernat66.stat.exists == false
   tags: [swarm]
 
@@ -63,6 +65,11 @@
   ignore_errors: yes
   changed_when: false
   register: dockernat66_status
+  tags: [swarm]
+
+- name: Fixing perms on /usr/local/bin for debian
+  shell: chmod -R g-w /usr/local/
+  when: ansible_distribution == 'Debian'
   tags: [swarm]
 
 - name: Docker-NAT66 is started
