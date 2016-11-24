@@ -32,7 +32,7 @@
 - name: Systemd Configuration is present
   copy:
     src: docker.service
-    dest: /etc/systemd/system/multi-user.target.wants/docker.service
+    dest: /etc/systemd/system/docker.service
   register: config_result
   when: not swarm_master is defined
   tags: [swarm]
