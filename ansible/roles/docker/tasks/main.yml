@@ -9,15 +9,19 @@
     repo: deb https://apt.dockerproject.org/repo debian-jessie main
     update_cache: yes
     state: present
-  when: ansible_distribution == 'Debian'
+	when: ansible_distribution == 'Debian'
   tags: [docker]
-
+  
 - name: Ubuntu add Docker repository and update apt cache
   apt_repository:
     repo: deb https://apt.dockerproject.org/repo ubuntu-trusty main
     update_cache: yes
     state: present
   when: ansible_distribution == 'Ubuntu'
+  tags: [docker]
+  
+- name: Add GPG key for Docker repo
+  apt-key: keyserver=hkp://p80.pool.sks-keyservers.net:80 id=58118E89F3A912897C070ADBF76221572C52609D
   tags: [docker]
 
 - name: Docker is present
