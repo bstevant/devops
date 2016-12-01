@@ -34,14 +34,31 @@
     src: docker.service
     dest: /etc/systemd/system/docker.service
   register: config_result
-  when: not swarm_master is defined
+  when: (not swarm_master is defined) and ansible_distribution == "Debian"
   tags: [swarm]
 
 - name: Service is restarted
   service:
     name: docker
     state: restarted
-  when: config_result|changed
+  when: (config_result.changed) and ansible_distribution == "Ubuntu"
+  tags: [swarm]
+
+- name: Service is restarted (systemd)
+  systemd: state=restarted daemon_reload=yes name=docker
+  when: (config_result.changed) and ansible_distribution == "Debian"
+  tags: [swarm]
+
+- name: Service is started
+  service:
+    name: docker
+    state: started
+  when: ansible_distribution == "Ubuntu"
+  tags: [swarm]
+
+- name: Service is started (systemd)
+  systemd: state=started daemon_reload=yes name=docker
+  when: ansible_distribution == "Debian"
   tags: [swarm]
 
 - name: IPv6 forwarding is activated
@@ -55,9 +72,17 @@
   tags: [swarm]
 
 - name: Install docker-nat66
-  shell: curl -L https://github.com/bstevant/docker-nat66/releases/download/0.1/nat66-docker > /usr/local/bin/docker-nat66
+  get_url: 
+    url: https://github.com/bstevant/docker-nat66/releases/download/0.1/nat66-docker
+    dest: /usr/local/bin/docker-nat66
   when: dockernat66.stat.exists == false
   tags: [swarm]
+
+- name: Fix perms on /usr/local
+  file: path={{item}} mode="u=rwx,g=rx,o=rx"
+  with_items:
+    - /usr/local/bin
+    - /usr/local
 
 - name: Apply executable permission
   file: path=/usr/local/bin/docker-nat66 mode="u+x,g+x"

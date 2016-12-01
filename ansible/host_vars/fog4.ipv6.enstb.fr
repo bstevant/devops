@@ -4,4 +4,4 @@ hostname: fog4.ipv6.enstb.fr
 ip: 2001:660:7301:51:3285:a9ff:fe78:ab5
 consul_extra: ""
 consul_master_ip: fog3n0.ipv6.enstb.fr
-egress_if: eth0
+egress_if: p5p1

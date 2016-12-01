@@ -1,16 +1,6 @@
 - name: Directories are present
-  file:
-    dest: "{{ item }}"
-    state: directory
-  with_items: directories
-  tags: [consul]
-
-- name: Files are present
-  copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    mode: "{{ item.mode }}"
-  with_items: files
+  file: dest={{ item }} state=directory
+  with_items: "{{ directories }}"
   tags: [consul]
 
 - name: Watchers are present
@@ -26,7 +16,15 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     mode: "{{ item.mode }}"
-  with_items: templates
+  with_items: "{{ templates }}"
+  tags: [consul]
+
+- name: Files are present
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ files }}"
   tags: [consul]
 
 - name: Service is started
