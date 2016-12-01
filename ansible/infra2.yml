@@ -1,4 +1,4 @@
-- include: compose.yml
-- include: swarm.yml
+- include: docker.yml
 - include: consul.yml
+- include: swarm.yml
 

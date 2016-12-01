@@ -19,6 +19,7 @@
   file:
     dest: /etc/init.d/docker
     state: absent
+  when: swarm_master is defined
   tags: [swarm]
 
 - name: Default Configuration is present
@@ -26,7 +27,7 @@
     src: docker.cfg
     dest: /etc/default/docker
   register: config_result
-  when: not swarm_master is defined
+  when: swarm_master is defined
   tags: [swarm]
 
 - name: Systemd Configuration is present
@@ -34,7 +35,7 @@
     src: docker.service
     dest: /etc/systemd/system/docker.service
   register: config_result
-  when: (not swarm_master is defined) and ansible_distribution == "Debian"
+  when: (swarm_master is defined) and ansible_distribution == "Debian"
   tags: [swarm]
 
 - name: Service is restarted
@@ -53,54 +54,7 @@
   service:
     name: docker
     state: started
-  when: ansible_distribution == "Ubuntu"
-  tags: [swarm]
-
-- name: Service is started (systemd)
-  systemd: state=started daemon_reload=yes name=docker
-  when: ansible_distribution == "Debian"
-  tags: [swarm]
-
-- name: IPv6 forwarding is activated
-  shell: sysctl -w net.ipv6.conf.all.forwarding=1 net.ipv6.conf.{{ egress_if }}.accept_ra=2
-  when: config_result|changed
-  tags: [swarm]
- 
-- name: Check docker-nat66 file presence
-  stat: path=/usr/local/bin/docker-nat66
-  register: dockernat66
-  tags: [swarm]
-
-- name: Install docker-nat66
-  get_url: 
-    url: https://github.com/bstevant/docker-nat66/releases/download/0.1/nat66-docker
-    dest: /usr/local/bin/docker-nat66
-  when: dockernat66.stat.exists == false
-  tags: [swarm]
-
-- name: Fix perms on /usr/local
-  file: path={{item}} mode="u=rwx,g=rx,o=rx"
-  with_items:
-    - /usr/local/bin
-    - /usr/local
-
-- name: Apply executable permission
-  file: path=/usr/local/bin/docker-nat66 mode="u+x,g+x"
-  tags: [swarm]
-
-- name: Debian daemon is present
-  apt: name=daemon state=present
-
-- name: Check if Docker-NAT66 is running
-  command: daemon -n docker-nat66 --running
-  ignore_errors: yes
-  changed_when: false
-  register: dockernat66_status
-  tags: [swarm]
-
-- name: Docker-NAT66 is started
-  shell: /usr/bin/daemon -n docker-nat66 -- /usr/local/bin/docker-nat66 -dev {{ egress_if }} -prefix fdd7:d924:3d5f:d0c4::/64
-  when: dockernat66_status | failed
+  when: (swarm_master is defined) and ansible_distribution == "Ubuntu"
   tags: [swarm]
 
 - name: Swarm node is running
