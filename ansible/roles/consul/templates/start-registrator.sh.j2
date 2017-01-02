@@ -1,0 +1,3 @@
+IP6ADDR=`ip -6 addr show dev {{ egress_if }} | grep global | grep -v temporary | cut -d ' ' -f 6 | cut -d '/' -f 1`
+/usr/bin/docker run --name registrator -v /var/run/docker.sock:/tmp/docker.sock \
+	--add-host fognode:$IP6ADDR gliderlabs/registrator -ip=$IP6ADDR consul://fognode:8500/services 
