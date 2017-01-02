@@ -4,4 +4,4 @@
   sudo: yes
   roles:
     - docker
-    - consul
+#    - consul

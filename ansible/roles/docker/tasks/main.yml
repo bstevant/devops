@@ -107,7 +107,7 @@
   template:
     src: docker-nat66.service.j2
     dest: /lib/systemd/system/docker-nat66.service
-	mode: 644
+    mode: 644
   notify:
     - reload systemctl
   when: ansible_distribution == "Debian"
