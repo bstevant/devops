@@ -1,0 +1,13 @@
+[Unit]
+Description=Registrator container
+Requires=consul.service
+After=consul.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker run --name registrator -v /var/run/docker.sock:/tmp/docker.sock --add-host fognode:{{ ip }} gliderlabs/registrator -ip={{ ip }} consul://fognode:8500/services 
+ExecStop=/usr/bin/docker stop -t 2 registrator
+ExecStopPost=/usr/bin/docker rm -f registrator
+
+[Install]
+WantedBy=default.target

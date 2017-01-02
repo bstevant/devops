@@ -19,6 +19,15 @@
   with_items: "{{ templates }}"
   tags: [consul]
 
+- name: Systemd Templates are present
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ tmplsystemd }}"
+  when: ansible_distribution == 'Debian'
+  tags: [consul]
+
 - name: Files are present
   copy:
     src: "{{ item.src }}"
@@ -29,9 +38,8 @@
 
 - name: Service is started
   service:
-    name=consul
-    state=started
-    pattern=/usr/local/bin/consul
+    name: consul
+    state: started
   tags: [consul]
 
 - name: Node is in cluster
@@ -57,7 +65,9 @@
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
     image: gliderlabs/registrator
-    command: -ip={{ ip }} consul://{{ hostname }}:8500
+    command: -ip={{ ip }} consul://fognode:8500
+    extra_hosts:
+       fognode: "{{ ip }}" 
   tags: [consul]
 
 - name: Registrator KV is running
@@ -66,7 +76,9 @@
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
     image: gliderlabs/registrator
-    command: -ip={{ ip }} consulkv://{{ hostname }}:8500/services
+    command: -ip={{ ip }} consulkv://fognode:8500/services
+    extra_hosts:
+       fognode: "{{ ip }}" 
   tags: [consul]
 
 - name: dnsmasq package is present
@@ -86,11 +98,10 @@
   service:
     name=dnsmasq
     state=started
-    pattern=/usr/sbin/consul
   tags: [consul]
   
 - name: Dnsmasq to resolv.conf
-  shell: echo "nameserver {{ ip }}" >> /etc/resolv.conf
+  shell: echo "nameserver {{ ip }}" > /etc/resolv.conf
   tags: [consul]
   
 - name: Dnsmasq Service is restarted
