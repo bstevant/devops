@@ -51,6 +51,7 @@
   service:
     name: consul
     state: started
+    enabled: yes
   tags: [consul]
 
 - name: Node is in cluster
@@ -74,12 +75,14 @@
   service:
     name: registrator
     state: started
+    enabled: yes
   tags: [consul]
 
 - name: Registrator-KV Service is started
   service:
     name: registrator-kv
     state: started
+    enabled: yes
   tags: [consul]
 
 - name: dnsmasq package is present
