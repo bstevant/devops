@@ -24,6 +24,9 @@
     var: iperf_output.stdout_lines
   when: is_iperf_server is not defined
 
+- local_action: copy content="{{ iperf_output.stdout_lines }}" dest="logs/current/iperf-{{ hostname }}-{{ iperf_server }}"
+  when: is_iperf_server is not defined
+
 - name: Test ping RTT
   shell: ping6 -q -c 10 {{ iperf_server }}
   register: ping_output
@@ -31,5 +34,8 @@
 
 - debug: 
     var: ping_output.stdout_lines
+  when: is_iperf_server is not defined
+
+- local_action: copy content="{{ ping_output.stdout_lines }}" dest="logs/current/ping-{{ hostname }}-{{ iperf_server }}"
   when: is_iperf_server is not defined
 
