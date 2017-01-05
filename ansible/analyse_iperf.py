@@ -34,4 +34,5 @@ for dirname in os.listdir('logs'):
         text_file.close()
 for pair in pairs:
     avg = np.average(results[pair])
-    print pair + ": " + str(avg) + " (" + str(len(results[pair])) + " results)"
+    std = np.std(results[pair])
+    print pair + ": " + str(avg) + " dev: " + str(std) + " (" + str(len(results[pair])) + " results)"
