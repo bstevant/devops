@@ -1,7 +1,7 @@
 [Unit]
 Description=Registrator container
 Requires=consul.service
-After=consul.service
+After=consul.service docker.service
 
 [Service]
 Restart=always

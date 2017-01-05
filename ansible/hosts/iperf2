@@ -1,0 +1,5 @@
+[iperf]
+fog8.ipv6.enstb.fr is_iperf_server=true
+fog9.ipv6.enstb.fr iperf_server=fog8.ipv6.enstb.fr
+fog10.ipv6.enstb.fr iperf_server=fog8.ipv6.enstb.fr
+fog11.ipv6.enstb.fr iperf_server=fog8.ipv6.enstb.fr

@@ -1,3 +1,13 @@
-IP6ADDR=`ip -6 addr show dev {{ egress_if }} | grep global | grep -v temporary | cut -d ' ' -f 6 | cut -d '/' -f 1`
+for RETRY in 1 2 3 4 5
+do
+  sleep 1
+  IP6ADDR=`ip -6 addr show dev {{ egress_if }} | grep global | grep -v temporary | cut -d ' ' -f 6 | cut -d '/' -f 1`
+  [ -n "$IP6ADDR" ] && break
+  sleep 1
+done
+if [ -z "$IP6ADDR"  ]; then
+  exit -1
+fi
+/usr/local/bin/consul join {{ consul_master_ip }}
 /usr/bin/docker run --name registrator-kv -v /var/run/docker.sock:/tmp/docker.sock \
 	--add-host fognode:$IP6ADDR gliderlabs/registrator -ip=$IP6ADDR consulkv://fognode:8500/services

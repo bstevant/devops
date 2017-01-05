@@ -1,7 +1,8 @@
 - hosts: consul
   serial: 1
-  remote_user: vagrant
   sudo: yes
+  vars:
+    docker_repo: fog3.ipv6.enstb.fr
   roles:
-#    - docker
+    - docker
     - consul

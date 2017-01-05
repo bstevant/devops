@@ -117,5 +117,5 @@
   service: name=docker-nat66.service state=started enabled=yes
   
 - name: Docker login
-  shell: docker login -u foguser -p foggydew {{ consul_master_ip }}
+  shell: docker login -u foguser -p foggydew {{ docker_repo }}:5000
   tags: [docker]

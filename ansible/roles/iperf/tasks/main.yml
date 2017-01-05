@@ -1,18 +1,35 @@
 - name: Start IPerf server container
-  docker_container:
+  docker:
     name: iperf
     image: networkstatic/iperf3
-    command: iperf3 -6s
+    command: -6s
     state: started
+    ports: 5201:5201
   when: is_iperf_server is defined
 
 - name: Start IPerf client container
-  docker_container:
+  docker:
     name: iperf
     image: networkstatic/iperf3
     command: iperf3 -6c {{ iperf_server }}
-  register: iperf_output
-  when: iperf_server is not defined
+    detach: false
+  when: is_iperf_server is not defined
 
-- debug: msg={{ iperf_output.stdout }}
-  when: iperf_server is not defined
+- name: Show output for IPerf client
+  shell: docker logs iperf
+  register: iperf_output
+  when: is_iperf_server is not defined
+
+- debug: 
+    var: iperf_output.stdout_lines
+  when: is_iperf_server is not defined
+
+- name: Test ping RTT
+  shell: ping6 -q -c 10 {{ iperf_server }}
+  register: ping_output
+  when: is_iperf_server is not defined
+
+- debug: 
+    var: ping_output.stdout_lines
+  when: is_iperf_server is not defined
+

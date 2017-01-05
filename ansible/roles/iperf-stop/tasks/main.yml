@@ -1,0 +1,6 @@
+- name: Start IPerf server container
+  docker:
+    name: iperf
+    image: networkstatic/iperf3
+    state: absent
+  when: is_iperf_server is defined
