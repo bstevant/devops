@@ -1,4 +1,4 @@
-ansible_ssh_private_key_file: ./.ssh/id_ecdsa
+ansible_ssh_private_key_file: /vagrant/ansible/.ssh/id_ecdsa
 ansible_ssh_user: fogadmin
 hostname: fog11
 ip: 2a01:e0a:4:dc20:20d:b9ff:fe42:4f18

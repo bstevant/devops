@@ -1,0 +1,4 @@
+- hosts: iperf
+  serial: 1
+  roles:
+    - iperf-stop
