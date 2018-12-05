@@ -27,6 +27,9 @@
   with_items: "{{ files }}"
   tags: [consul]
 
+- name: unzip package is present
+  apt: name=unzip state=present
+
 - name: Consul binary is present
   unarchive:
     src: "https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip"
