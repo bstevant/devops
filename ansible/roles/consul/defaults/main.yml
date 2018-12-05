@@ -1,3 +1,5 @@
+consul_version: "1.2.4"
+
 directories:
   - /etc/consul.d
   - /data/consul
@@ -6,7 +8,6 @@ directories:
   - /data/consul/config
 
 files: 
-  - { src: "consul", dest: "/usr/local/bin/consul", mode: "0755" }
   - { src: "consul-template", dest: "/usr/local/bin/consul-template", mode: "0755" }
   - { src: "ui", dest: "/data/consul", mode: "0744" }
   - { src: "mem.sh", dest: "/data/consul/scripts/mem.sh", mode: "0755" }
