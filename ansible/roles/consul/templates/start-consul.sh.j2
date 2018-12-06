@@ -8,5 +8,5 @@ done
 if [ -z "$IP6ADDR"  ]; then
   exit -1
 fi 
-/usr/local/bin/consul agent {{ consul_extra }} -data-dir /tmp/consul -config-dir /etc/consul.d \
+/usr/local/bin/consul agent {{ consul_extra }} -enable-script-checks=true -data-dir /tmp/consul -config-dir /etc/consul.d \
 	-node={{ hostname }} -bind=$IP6ADDR -client=0.0.0.0 >/data/consul/logs/consul.log 2>&1
