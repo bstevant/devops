@@ -31,12 +31,12 @@
   when: is_iperf_server is not defined
 
 - debug: 
-    msg: "{{iperf_output.stdout_lines[-3:-3]}}"
+    msg: "{{iperf_output.stdout_lines[-3]}}"
   when: is_iperf_server is not defined
 
 - lineinfile:
     dest: "logs/iperf/iperf-{{ hostname }}-{{ iperf_server }}"
-    line: "{{ansible_date_time.epoch}} - {{iperf_output.stdout_lines[-3:-3]}}"
+    line: "{{ansible_date_time.epoch}} - {{iperf_output.stdout_lines[-3]}}"
     create: yes
   when: is_iperf_server is not defined
   delegate_to: localhost
@@ -47,12 +47,12 @@
   when: is_iperf_server is not defined
 
 - debug: 
-    msg: "{{ping_output.stdout_lines[-1:]}}"
+    msg: "{{ping_output.stdout_lines[-1]}}"
   when: is_iperf_server is not defined
 
 - lineinfile:
     dest: "logs/ping/ping-{{ hostname }}-{{ iperf_server }}"
-    line: "{{ansible_date_time.epoch}} - {{ping_output.stdout_lines[-1:]}}"
+    line: "{{ansible_date_time.epoch}} - {{ping_output.stdout_lines[-1]}}"
     create: yes
   when: is_iperf_server is not defined
   delegate_to: localhost
