@@ -24,13 +24,13 @@
     command: iperf3 -fm -6c {{ hostname }}
     detach: false
   when: is_iperf_server is defined
-  delegate_to: iperf_client
+  delegate_to: "{{ iperf_client }}"
 
 - name: Show output for IPerf client
   shell: docker logs iperf
   register: iperf_output
   when: is_iperf_server is defined
-  delegate_to: iperf_client
+  delegate_to: "{{ iperf_client }}"
 
 - debug: 
     msg: "{{iperf_output.stdout_lines[-3]}}"
