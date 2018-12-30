@@ -31,7 +31,7 @@
   when: is_iperf_server is not defined
 
 - debug: 
-    var: "{{iperf_output.stdout_lines[-4]}}"
+    msg: "{{iperf_output.stdout_lines[-3]}}"
   when: is_iperf_server is not defined
 
 - lineinfile:
