@@ -35,7 +35,7 @@
   when: is_iperf_server is not defined
 
 - lineinfile:
-    path: "logs/iperf/iperf-{{ hostname }}-{{ iperf_server }}"
+    dest: "logs/iperf/iperf-{{ hostname }}-{{ iperf_server }}"
     line: "{{ansible_date_time.epoch}} - {{iperf_output.stdout_lines[-3:-3]}}"
     create: yes
   when: is_iperf_server is not defined
@@ -51,7 +51,7 @@
   when: is_iperf_server is not defined
 
 - lineinfile:
-    path: "logs/ping/ping-{{ hostname }}-{{ iperf_server }}"
+    dest: "logs/ping/ping-{{ hostname }}-{{ iperf_server }}"
     line: "{{ansible_date_time.epoch}} - {{ping_output.stdout_lines[-1:]}}"
     create: yes
   when: is_iperf_server is not defined
