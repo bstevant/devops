@@ -31,12 +31,12 @@
   when: is_iperf_server is not defined
 
 - debug: 
-    msg: "{{iperf_output.stdout_lines[-3:]}}"
+    msg: "{{iperf_output.stdout_lines[-3:-3]}}"
   when: is_iperf_server is not defined
 
 - lineinfile:
     path: "logs/iperf/iperf-{{ hostname }}-{{ iperf_server }}"
-    line: "{{ansible_date_time.epoch}} - {{perf_output.stdout_lines[-3:]}}"
+    line: "{{ansible_date_time.epoch}} - {{iperf_output.stdout_lines[-3:-3]}}"
     create: yes
   when: is_iperf_server is not defined
   delegate_to: localhost
