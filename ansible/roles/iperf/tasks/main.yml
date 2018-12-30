@@ -5,7 +5,17 @@
     command: -6s
     state: started
     ports: 5201:5201
-  when: is_iperf_server is defined
+  when: (is_iperf_server is defined) and (ansible_distribution == "Debian")
+
+- name: Iperf package is present
+  apt:
+    name: iperf3
+    state: latest
+  when: ansible_distribution == "Ubuntu"
+  
+- name: Iperf3 server is started
+  shell: (cd /; iperf3 -6s >/dev/null 2>&1 &)
+  when: (is_iperf_server is defined) and (ansible_distribution == "Ubuntu")
 
 - name: Start IPerf client container
   docker:
