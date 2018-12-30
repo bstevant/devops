@@ -36,7 +36,7 @@
 
 - lineinfile:
     path: "logs/iperf/iperf-{{ hostname }}-{{ iperf_server }}"
-    line: "{{iperf_output.stdout_lines[-3]}}"
+    line: Time {{ansible_date_time.epoch}} - {{iperf_output.stdout_lines[-3]}}
     create: yes
   when: is_iperf_server is not defined
   delegate_to: localhost
@@ -52,7 +52,7 @@
 
 - lineinfile:
     path: "logs/ping/ping-{{ hostname }}-{{ iperf_server }}"
-    line: "{{ping_output.stdout_lines[-1]}}"
+    line: Time {{ansible_date_time.epoch}} - {{ping_output.stdout_lines[-1]}}
     create: yes
   when: is_iperf_server is not defined
   delegate_to: localhost
