@@ -31,11 +31,13 @@
   when: is_iperf_server is not defined
 
 - debug: 
-    var: iperf_output.stdout_lines
+    var: "{{iperf_output.stdout_lines[-4]}}"
   when: is_iperf_server is not defined
 
-- local_action: copy content="{{ iperf_output.stdout_lines }}" dest="logs/current/iperf-{{ hostname }}-{{ iperf_server }}"
-  when: is_iperf_server is not defined
+- lineinfile:
+  path: "logs/iperf/iperf-{{ hostname }}-{{ iperf_server }}"
+  line: "{{ansible_date_time.epoch}} - {{iperf_output.stdout_lines[-4]}}"
+  create: yes
 
 - name: Test ping RTT
   shell: ping6 -q -c 10 {{ iperf_server }}
@@ -43,9 +45,10 @@
   when: is_iperf_server is not defined
 
 - debug: 
-    msg: "{{ping_output.stdout_lines[-1:]}}"
+    msg: "{{ping_output.stdout_lines[-1]}}"
   when: is_iperf_server is not defined
 
-- local_action: copy content="{{ ping_output.stdout_lines }}" dest="logs/current/ping-{{ hostname }}-{{ iperf_server }}"
-  when: is_iperf_server is not defined
-
+- lineinfile:
+  path: "logs/ping/ping-{{ hostname }}-{{ iperf_server }}"
+  line: "{{ansible_date_time.epoch}} - {{ping_output.stdout_lines[-1]}}"
+  create: yes
