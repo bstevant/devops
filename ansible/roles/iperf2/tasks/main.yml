@@ -1,0 +1,51 @@
+- name: Start IPerf server container
+  docker:
+    name: iperf
+    image: networkstatic/iperf3
+    command: -6s
+    state: started
+    ports: 5201:5201
+  when: (is_iperf_server is defined) and (ansible_distribution == "Debian")
+
+- name: Iperf package is present
+  apt:
+    name: iperf3
+    state: latest
+  when: ansible_distribution == "Ubuntu"
+  
+- name: Iperf3 server is started
+  command: iperf3 -6Ds 
+  when: (is_iperf_server is defined) and (ansible_distribution == "Ubuntu")
+
+- name: Start IPerf client container
+  docker:
+    name: iperf
+    image: networkstatic/iperf3
+    command: iperf3 -fm -6c {{ hostname }}
+    detach: false
+  when: is_iperf_server is defined
+  delegate_to: iperf_client
+
+- name: Show output for IPerf client
+  shell: docker logs iperf
+  register: iperf_output
+  when: is_iperf_server is defined
+  delegate_to: iperf_client
+
+- debug: 
+    msg: "{{iperf_output.stdout_lines[-3]}}"
+  when: is_iperf_server is defined
+
+- lineinfile:
+    dest: "logs/iperf/iperf-{{ iperf_client }}-{{ hostname }}"
+    line: "{{ansible_date_time.epoch}} - {{iperf_output.stdout_lines[-3]}}"
+    create: yes
+  when: is_iperf_server is defined
+  delegate_to: localhost
+
+- name: Stop IPerf server container
+  docker:
+    name: iperf
+    image: networkstatic/iperf3
+    state: absent
+  when: is_iperf_server is defined
