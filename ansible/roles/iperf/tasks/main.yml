@@ -14,7 +14,7 @@
   when: ansible_distribution == "Ubuntu"
   
 - name: Iperf3 server is started
-  shell: (cd /; iperf3 -6s >/dev/null 2>&1 &)
+  command: iperf3 -6Ds 
   when: (is_iperf_server is defined) and (ansible_distribution == "Ubuntu")
 
 - name: Start IPerf client container
@@ -43,7 +43,7 @@
   when: is_iperf_server is not defined
 
 - debug: 
-    var: ping_output.stdout_lines
+    msg: "{{ping_output.stdout_lines[-1:]}}"
   when: is_iperf_server is not defined
 
 - local_action: copy content="{{ ping_output.stdout_lines }}" dest="logs/current/ping-{{ hostname }}-{{ iperf_server }}"

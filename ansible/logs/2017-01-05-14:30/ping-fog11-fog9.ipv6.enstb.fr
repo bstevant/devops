@@ -1,0 +1,1 @@
+["PING fog9.ipv6.enstb.fr(bstevant-1-pt.tunnel.tserv1.bud1.ipv6.he.net) 56 data bytes", "", "--- fog9.ipv6.enstb.fr ping statistics ---", "10 packets transmitted, 10 received, 0% packet loss, time 9012ms", "rtt min/avg/max/mdev = 155.399/159.093/166.935/3.782 ms"]
