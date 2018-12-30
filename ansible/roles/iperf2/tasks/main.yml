@@ -17,17 +17,8 @@
   command: iperf3 -6Ds 
   when: (is_iperf_server is defined) and (ansible_distribution == "Ubuntu")
 
-- name: Start IPerf client container
-  docker:
-    name: iperf
-    image: networkstatic/iperf3
-    command: iperf3 -fm -6c {{ hostname }}
-    detach: false
-  when: is_iperf_server is defined
-  delegate_to: "{{ iperf_client }}"
-
-- name: Show output for IPerf client
-  shell: docker logs iperf
+- name: Start IPerf client
+  command: iperf3 -fm -6c {{ hostname }}
   register: iperf_output
   when: is_iperf_server is defined
   delegate_to: "{{ iperf_client }}"
