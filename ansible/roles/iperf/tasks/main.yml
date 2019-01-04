@@ -26,7 +26,7 @@
   when: is_iperf_server is not defined
 
 - name: Show output for IPerf client
-  shell: docker logs iperf
+  shell: docker logs iperf-client
   register: iperf_output
   when: is_iperf_server is not defined
 
