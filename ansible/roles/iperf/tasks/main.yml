@@ -1,6 +1,6 @@
 - name: Start IPerf server container
   docker:
-    name: iperf
+    name: iperf-server
     image: networkstatic/iperf3
     command: -6s
     state: started
@@ -19,7 +19,7 @@
 
 - name: Start IPerf client container
   docker:
-    name: iperf
+    name: iperf-client
     image: networkstatic/iperf3
     command: iperf3 -fm -6c {{ iperf_server }}
     detach: false
