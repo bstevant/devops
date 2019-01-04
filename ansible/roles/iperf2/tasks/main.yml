@@ -18,7 +18,7 @@
   when: (is_iperf_server is defined) and (ansible_distribution == "Ubuntu")
 
 - name: Start IPerf client
-  command: iperf3 -fm -6c {{ hostname }}
+  command: iperf3 -fm -6c {{ ip }}
   register: iperf_output
   when: is_iperf_server is defined
   delegate_to: "{{ iperf_client }}"
