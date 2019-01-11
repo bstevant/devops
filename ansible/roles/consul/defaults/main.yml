@@ -1,4 +1,4 @@
-consul_version: "1.2.4"
+consul_version: "1.4.0"
 
 directories:
   - /etc/consul.d
