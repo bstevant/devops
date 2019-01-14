@@ -12,7 +12,10 @@ with open(args.filepath, 'r') as resfile:
         ts = int(s[0])
         values = s[5]
         vs = values.split('/')
-        v = float(vs[1])
+        try:
+            v = float(vs[1])
+        except:
+            continue
         if (ts >= args.ts1) and (ts <= args.ts2):
             print '%d\t%f' % (ts, v)
 
