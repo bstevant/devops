@@ -6,8 +6,7 @@ parser.add_argument('ts1', type=int, help='Timestamp')
 parser.add_argument('ts2', type=int, help='Timestamp')
 args = parser.parse_args()
 
-#with open(args.filepath, 'r') as resfile:
-with open('logs/ping/ping-fog12-fog3n1.ipv6.enstb.fr', 'r') as resfile:
+with open(args.filepath, 'r') as resfile:
     for l in resfile.readlines():
         s = l.split(' ')
         ts = int(s[0])
