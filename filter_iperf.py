@@ -7,6 +7,7 @@ parser.add_argument('ts2', type=int, help='Timestamp')
 args = parser.parse_args()
 
 with open(args.filepath, 'r') as resfile:
+    last = 0
     for l in resfile.readlines():
         s = l.split(' ')
         ts = int(s[0])
@@ -19,6 +20,9 @@ with open(args.filepath, 'r') as resfile:
                 v = float(v2)
             except:
                 continue
+        if last !=0:
+            last = v
+            v = (v+last)/2
         if (ts >= args.ts1) and (ts <= args.ts2):
             print '%d\t%f' % (ts, v)
 
