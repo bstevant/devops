@@ -21,8 +21,9 @@ with open(args.filepath, 'r') as resfile:
             except:
                 continue
         if last !=0:
+            v2 = (v+last)/2
             last = v
-            v = (v+last)/2
+            v = v2
         if (ts >= args.ts1) and (ts <= args.ts2):
             print '%d\t%f' % (ts, v)
 
