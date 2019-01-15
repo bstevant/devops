@@ -1,8 +1,22 @@
 [compose]
+#fog8b.ipv6.enstb.fr
 fog9.ipv6.enstb.fr
+#fog10b.ipv6.enstb.fr
+#fog12b.ipv6.enstb.fr
+#fog13b.ipv6.enstb.fr
+#fog14b.ipv6.enstb.fr
+#g6fog.ipv6.enstb.fr
+#fog3n1.ipv6.enstb.fr
 
 [consul]
+#fog8b.ipv6.enstb.fr
 fog9.ipv6.enstb.fr
+#fog10b.ipv6.enstb.fr
+#fog12b.ipv6.enstb.fr
+#fog13b.ipv6.enstb.fr
+#fog14b.ipv6.enstb.fr
+#g6fog.ipv6.enstb.fr
+#fog3n1.ipv6.enstb.fr
 
 [jenkins]
 fog3n0.ipv6.enstb.fr 

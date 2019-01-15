@@ -1,1 +1,0 @@
-["PING fog8.ipv6.enstb.fr(2001:660:7301:51:20d:b9ff:fe42:4d08) 56 data bytes", "", "--- fog8.ipv6.enstb.fr ping statistics ---", "10 packets transmitted, 10 received, 0% packet loss, time 9012ms", "rtt min/avg/max/mdev = 14.258/14.457/15.110/0.290 ms"]

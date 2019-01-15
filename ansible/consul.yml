@@ -4,5 +4,5 @@
   vars:
     docker_repo: fog3.ipv6.enstb.fr
   roles:
-    - docker
+#    - docker
     - consul

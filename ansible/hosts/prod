@@ -3,10 +3,10 @@ fog3n0.ipv6.enstb.fr
 
 [consul]
 fog3n0.ipv6.enstb.fr
-fog4.ipv6.enstb.fr
-fog5.ipv6.enstb.fr
-fog6.ipv6.enstb.fr
-fog7.ipv6.enstb.fr
+#fog4.ipv6.enstb.fr
+#fog5.ipv6.enstb.fr
+#fog6.ipv6.enstb.fr
+#fog7.ipv6.enstb.fr
 
 [jenkins]
 fog3n0.ipv6.enstb.fr 
