@@ -1,6 +1,10 @@
-- name: Start IPerf server container
+- name: Stop IPerf server container
   docker:
     name: iperf-server
     image: networkstatic/iperf3
     state: absent
-  when: is_iperf_server is defined
+  when: (is_iperf_server is defined) and (ansible_distribution == "Debian")
+
+- name: Stop IPerf server daemon
+  shell: killall iperf3
+  when: (is_iperf_server is defined) and (ansible_distribution == "Ubuntu")
