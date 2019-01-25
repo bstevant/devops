@@ -36,17 +36,16 @@
   delegate_to: localhost
 
 - name: Update EIaaS
-  command:
+  shell: python update_eiaas_link.py download "{{ hostname }}" '"{{iperf_output.stdout_lines[-3]}}"'
   args:
     chdir: eiaas
-    argv:
-      - python
-      - update_eiaas_link.py
-      - download
-      - "{{ hostname }}"
-      - "{{iperf_output.stdout_lines[-3]}}"
-  when: is_iperf_server is defined
+  register: update_output
+  when: is_iperf_server is not defined
   delegate_to: localhost
+
+- debug: 
+    msg: "{{update_output.stdout_lines}}"
+  when: is_iperf_server is not defined
 
 - name: Stop IPerf server container
   docker:
