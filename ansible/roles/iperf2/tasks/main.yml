@@ -40,12 +40,12 @@
   args:
     chdir: eiaas
   register: update_output
-  when: is_iperf_server is not defined
+  when: is_iperf_server is defined
   delegate_to: localhost
 
 - debug: 
     msg: "{{update_output.stdout_lines}}"
-  when: is_iperf_server is not defined
+  when: is_iperf_server is defined
 
 - name: Stop IPerf server container
   docker:
