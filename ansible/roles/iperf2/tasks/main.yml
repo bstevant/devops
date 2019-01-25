@@ -27,10 +27,24 @@
     msg: "{{iperf_output.stdout_lines[-3]}}"
   when: is_iperf_server is defined
 
-- lineinfile:
+- name: Append line in log file
+  lineinfile:
     dest: "logs/iperf/iperf-{{ iperf_client }}-{{ hostname }}"
     line: "{{ansible_date_time.epoch}} - {{iperf_output.stdout_lines[-3]}}"
     create: yes
+  when: is_iperf_server is defined
+  delegate_to: localhost
+
+- name: Update EIaaS
+  command:
+  args:
+    chdir: eiaas
+    argv:
+      - python
+      - update_eiaas_link.py
+      - download
+      - "{{ hostname }}"
+      - "{{iperf_output.stdout_lines[-3]}}"
   when: is_iperf_server is defined
   delegate_to: localhost
 
