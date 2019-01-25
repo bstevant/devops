@@ -51,7 +51,7 @@
   delegate_to: localhost
 
 - debug: 
-    msg: "{{update_output.stdout_lines[-3]}}"
+    msg: "{{update_output.stdout_lines}}"
   when: is_iperf_server is not defined
 
 - name: Test ping RTT
@@ -80,5 +80,5 @@
   delegate_to: localhost
 
 - debug: 
-    msg: "{{update_output.stdout_lines[-3]}}"
+    msg: "{{update_output.stdout_lines}}"
   when: is_iperf_server is not defined
