@@ -60,6 +60,15 @@ for i in $xp6; do
   python filter_ping.py ansible/logs/ping/ping-$i-fog3n1.ipv6.enstb.fr 1547411663 1547453163 >> filtered_scores/xp6_ping_$i.txt
 done
 
+for i in $xp6; do
+  echo "time bw" > filtered_scores/xp6b_downbw_$i.txt
+  python filter_iperf.py ansible/logs/iperf/iperf-fog3n1.ipv6.enstb.fr-$i 1547400000 1547453163 >> filtered_scores/xp6b_downbw_$i.txt
+  echo "time bw" > filtered_scores/xp6b_upbw_$i.txt
+  python filter_iperf.py ansible/logs/iperf/iperf-$i-fog3n1.ipv6.enstb.fr 1547400000 1547453163 >> filtered_scores/xp6b_upbw_$i.txt
+  echo "time ms" > filtered_scores/xp6b_ping_$i.txt
+  python filter_ping.py ansible/logs/ping/ping-$i-fog3n1.ipv6.enstb.fr 1547400000 1547453163 >> filtered_scores/xp6b_ping_$i.txt
+done
+
 for i in $xp14; do
   echo "time bw" > filtered_scores/xp14_downbw_$i.txt
   python filter_iperf.py ansible/logs/iperf/iperf-fog3n1.ipv6.enstb.fr-$i 1548980086 1549025604 >> filtered_scores/xp14_downbw_$i.txt
