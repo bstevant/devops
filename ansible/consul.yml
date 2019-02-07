@@ -1,5 +1,5 @@
 - hosts: consul
-  serial: 1
+  serial: 10
   sudo: yes
   vars:
     docker_repo: fog3.ipv6.enstb.fr

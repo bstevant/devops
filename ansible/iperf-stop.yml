@@ -1,4 +1,4 @@
 - hosts: iperf
-  serial: 1
+  serial: 10
   roles:
     - iperf-stop

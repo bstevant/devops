@@ -2,6 +2,7 @@
 fog3n1.ipv6.enstb.fr 
 fog14.ipv6.enstb.fr is_iperf_server=true iperf_client=fog3n1.ipv6.enstb.fr
 fog10.ipv6.enstb.fr is_iperf_server=true iperf_client=fog3n1.ipv6.enstb.fr
+fog11.ipv6.enstb.fr is_iperf_server=true iperf_client=fog3n1.ipv6.enstb.fr
 fog12.ipv6.enstb.fr is_iperf_server=true iperf_client=fog3n1.ipv6.enstb.fr
 fog8.ipv6.enstb.fr is_iperf_server=true iperf_client=fog3n1.ipv6.enstb.fr
 #fog9.ipv6.enstb.fr is_iperf_server=true iperf_client=fog3n1.ipv6.enstb.fr
