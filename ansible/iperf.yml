@@ -2,3 +2,17 @@
   serial: 1
   roles:
     - iperf
+  vars:
+#    update_eiaas: True
+
+- hosts: iperf
+  serial: 10
+  roles:
+    - iperf-stop
+
+- hosts: iperf2
+  serial: 1
+  roles:
+    - iperf2
+  vars:
+#    update_eiaas: True
