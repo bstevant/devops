@@ -1,4 +1,5 @@
 - hosts: iperf
+  ignore_unreachable: True
   serial: 1
   roles:
     - iperf
@@ -6,11 +7,13 @@
 #    update_eiaas: True
 
 - hosts: iperf
+  ignore_unreachable: True
   serial: 10
   roles:
     - iperf-stop
 
 - hosts: iperf2
+  ignore_unreachable: True
   serial: 1
   roles:
     - iperf2
