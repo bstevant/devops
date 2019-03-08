@@ -28,7 +28,7 @@ for f in filenames:
     #print("%s: %d" % (path, nb_scenario))
 
 scenarios_inter = []
-for s in scenarios_raw.values:
+for s in scenarios_raw.values():
     if len(scenarios_inter) == 0:
         scenarios_inter = s.copy()
         continue
