@@ -9,7 +9,7 @@ args = parser.parse_args()
 nb_scenario = 0
 filenames = ['iperf-fog3n1.ipv6.enstb.fr-%s',
              'iperf-%s-fog3n1.ipv6.enstb.fr' ]
-scenarios_raw = []
+scenarios_raw = {}
 
 for f in filenames:
     path =  args.filepath + (f % args.node)
