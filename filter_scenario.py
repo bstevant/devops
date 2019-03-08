@@ -21,7 +21,7 @@ for f in filenames:
             if (ts - last_ts) > args.gap:
                 nb_scenario+=1
                 if last_ts != 0:
-                    scenarios.append([start_ts, last-ts])
+                    scenarios.append([start_ts, last_ts])
                 start_ts = ts
             last_ts = ts
     print("%s: %d" % (path, nb_scenario))
