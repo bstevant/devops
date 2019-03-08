@@ -13,7 +13,7 @@ scenarios = []
 
 for f in filenames:
     path =  args.filepath + (f % args.node)
-    with open(args.filepath, 'r') as resfile:
+    with open(path, 'r') as resfile:
         last_ts = 0
         for l in resfile.readlines():
             s = l.split(' ')
