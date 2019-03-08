@@ -11,8 +11,7 @@ with open(args.filepath, 'r') as resfile:
     for l in resfile.readlines():
         s = l.split(' ')
         ts = int(s[0])
-        if (ts - last_ts) > 3600:
+        if (ts - last_ts) > args.gap:
             nb_scenario+=1
-        if last_ts == 0:
             last_ts = ts
 print("%s: %d" % (args.filepath, nb_scenario))
