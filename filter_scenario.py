@@ -30,7 +30,7 @@ for f in filenames:
 scenarios_inter = []
 for s in scenarios_raw.values():
     if len(scenarios_inter) == 0:
-        scenarios_inter = s.copy()
+        scenarios_inter = s
         continue
     new_scenarios = []
     for intv1 in scenarios_inter:
