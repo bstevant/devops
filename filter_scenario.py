@@ -135,23 +135,22 @@ for node in nodes:
         new_scenarios = intervalles_inter(scenarios_inter[node], s)
         scenarios_inter[node] = new_scenarios
 
-print_scenarios()
-raw_input()
-
 def intersec_nodes(key, node_set):
-    idx = 0
+    i = 0
     for n in node_set:
-        idx += 1
+        i += 1
         key_new = "%s_%s" % (key, n2)
-        scenarios_inter[key_new] = intervalles_inter(scenarios_inter[key], scenarios_inter[n])
-        scenarios_inter[key] = intervalles_diff(scenarios_inter[key], scenarios_inter[key_new])
-        #if idx > len(nodes):
-            #intersec_nodes(key_new, node_set[idx:])
+        new_scenarios = intervalles_inter(scenarios_inter[key], scenarios_inter[n])
+        if len(new_scenarios) > 0:
+            scenarios_inter[key_new] = new_scenarios
+            scenarios_inter[key] = intervalles_diff(scenarios_inter[key], scenarios_inter[key_new])
+            if idx < len(nodes):
+                intersec_nodes(key_new, node_set[idx:])
 
 idx = 0
 for n1 in nodes:
     idx += 1
-    if idx > len(nodes):
+    if idx < len(nodes):
         intersec_nodes(n1, nodes[idx:])
 
 print_scenarios()
