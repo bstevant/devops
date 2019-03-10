@@ -172,6 +172,8 @@ for n1 in nodes:
         intersec_nodes(n1, nodes[idx:])
 
 print_scenarios(long_keys)
+i = intervalles_diff([[1,10]], [[3,5]])
+print i
 
 # Find intersection between nodes
 
