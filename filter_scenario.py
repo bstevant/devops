@@ -111,7 +111,7 @@ for node in nodes:
     scenarios_raw = {}
     nb_scenario = 0
     for f in filenames:
-        path =  args.filepath + (f % args.node)
+        path =  args.filepath + (f % node)
         scenarios_raw[f] = []
         with open(path, 'r') as resfile:
             last_ts = 0
