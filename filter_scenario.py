@@ -92,7 +92,7 @@ def intervalles_diff(intv_set1, intv_set2):
 def intervalles_len(intvs):
     lens = []
     for intv in intvs:
-        l = intv[1] - intv[2]
+        l = intv[1] - intv[0]
         lens.append(l)
     return lens
 
