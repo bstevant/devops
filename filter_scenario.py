@@ -44,7 +44,7 @@ def intervalles_diff(intv_set1, intv_set2):
         finalize = False
         intv_extra = []
         idx = 0
-        while finalize != True:
+        while (finalize != True) and (idx > len(intv_set2)):
             intv2 = intv_set2[idx]
             idx += 1
             # Disjoint
