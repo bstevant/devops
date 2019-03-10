@@ -144,8 +144,8 @@ def intersec_nodes(key, node_set):
         if len(new_scenarios) > 0:
             scenarios_inter[key_new] = new_scenarios
             scenarios_inter[key] = intervalles_diff(scenarios_inter[key], scenarios_inter[key_new])
-            if idx < len(nodes):
-                intersec_nodes(key_new, node_set[idx:])
+            if i < len(nodes):
+                intersec_nodes(key_new, node_set[i:])
 
 idx = 0
 for n1 in nodes:
