@@ -89,8 +89,8 @@ def intervalles_diff(intv_set1, intv_set2):
             differences += intv_extra
     return differences
 
-def print_scenarios():
-    for k in scenarios_inter.keys():
+def print_scenarios(keys):
+    for k in keys:
         print("%s: %d" % (k, len(scenarios_inter[k])))
 
 parser = argparse.ArgumentParser()
@@ -142,18 +142,21 @@ def intersec_nodes(key, node_set):
         key_new = "%s_%s" % (key, n)
         new_scenarios = intervalles_inter(scenarios_inter[key], scenarios_inter[n])
         if len(new_scenarios) > 0:
+            if len(key_new.split('_') >= 5):
+                long_keys.append(key_new)
             scenarios_inter[key_new] = new_scenarios
             scenarios_inter[key] = intervalles_diff(scenarios_inter[key], scenarios_inter[key_new])
             if i < len(nodes):
                 intersec_nodes(key_new, node_set[i:])
 
+long_keys = []
 idx = 0
 for n1 in nodes:
     idx += 1
     if idx < len(nodes):
         intersec_nodes(n1, nodes[idx:])
 
-print_scenarios()
+print_scenarios(long_keys)
 raw_input()
 
 # Find intersection between nodes
