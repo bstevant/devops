@@ -93,7 +93,8 @@ def intervalles_len(intvs):
     lens = []
     for intv in intvs:
         l = intv[1] - intv[0]
-        lens.append(l)
+        if l > (args.gap * 10):
+            lens.append(l)
     return lens
 
 def print_scenarios(keys):
