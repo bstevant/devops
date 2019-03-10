@@ -100,6 +100,8 @@ def intervalles_len(intvs):
 def print_scenarios(keys):
     for k in keys:
         intv_len = intervalles_len(scenarios_inter[k])
+        if len(intv_len) == 0:
+            continue
         avg_len = int(numpy.average(intv_len))
         med_len = int(numpy.median(intv_len))
         min_len = int(numpy.min(intv_len))
