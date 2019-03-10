@@ -91,7 +91,7 @@ def intervalles_diff(intv_set1, intv_set2):
 
 def print_scenarios():
     for k in scenarios_inter.keys():
-        print("%s: %n" % (k, len(scenarios_inter[k])))
+        print("%s: %d" % (k, len(scenarios_inter[k])))
 
 parser = argparse.ArgumentParser()
 parser.add_argument('filepath', type=str, help='dirname')
