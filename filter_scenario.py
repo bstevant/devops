@@ -143,8 +143,8 @@ for n1 in nodes:
     idx += 1
     for n2 in nodes[idx:]:
         key = "%s_%s" % (n1, n2)
-            scenarios_inter[key] = intervalles_inter(scenarios_inter[n1], scenarios_inter[n2])
-            scenarios_inter[n1] = intervalles_diff(scenarios_inter[n1], scenarios_inter[key])
+        scenarios_inter[key] = intervalles_inter(scenarios_inter[n1], scenarios_inter[n2])
+        scenarios_inter[n1] = intervalles_diff(scenarios_inter[n1], scenarios_inter[key])
 
 print_scenarios()
 raw_input()
