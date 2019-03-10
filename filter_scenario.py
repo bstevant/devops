@@ -132,7 +132,7 @@ for node in nodes:
         if len(scenarios_inter[node]) == 0:
             scenarios_inter[node] = s
             continue
-        new_scenarios = intervalles_inter(scenarios_inter, s)
+        new_scenarios = intervalles_inter(scenarios_inter[node], s)
         scenarios_inter[node] = new_scenarios
 
 print_scenarios()
