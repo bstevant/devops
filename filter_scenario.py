@@ -93,7 +93,7 @@ def intervalles_len(intvs):
     lens = []
     for intv in intvs:
         l = intv[1] - intv[0]
-        if l > (args.gap * 10):
+        if l > (args.gap * 24):
             lens.append(l)
     return lens
 
@@ -101,7 +101,7 @@ def print_scenarios(keys):
     for k in keys:
         intv_len = intervalles_len(scenarios_inter[k])
         avg_len = int(numpy.average(intv_len))
-        med_len = int(numpy.mean(intv_len))
+        med_len = int(numpy.median(intv_len))
         min_len = int(numpy.min(intv_len))
         max_len = int(numpy.max(intv_len))
         print("%s: :%d avg:%d min:%d max:%d med:%d" % (k, len(scenarios_inter[k]), avg_len, min_len, max_len, med_len))
