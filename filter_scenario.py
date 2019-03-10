@@ -142,7 +142,7 @@ def intersec_nodes(key, node_set):
         key_new = "%s_%s" % (key, n)
         new_scenarios = intervalles_inter(scenarios_inter[key], scenarios_inter[n])
         if len(new_scenarios) > 0:
-            if len(key_new.split('_') >= 5):
+            if len(key_new.split('_')) >= 5:
                 long_keys.append(key_new)
             scenarios_inter[key_new] = new_scenarios
             scenarios_inter[key] = intervalles_diff(scenarios_inter[key], scenarios_inter[key_new])
