@@ -178,7 +178,7 @@ def dump_scenarios(keys):
     with open(filepath, 'w') as outfile:
         outfile.write("nodes; start; end; len\n")
         for k in keys:
-            for intv in scenarios_inter[key]:
+            for intv in scenarios_inter[k]:
                 outfile.write("%s; %d; %d; %d\n" % (k, intv[0], intv[1], (intv[1] - intv[0])))
 
 long_keys = []
