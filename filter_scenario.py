@@ -171,6 +171,15 @@ def intersec_nodes(key, node_set):
             if i < len(nodes):
                 intersec_nodes(key_new, node_set[i:])
 
+def dump_scenarios(keys):
+    now = datetime.now().strftime("%Y-%m-%dT%H%M")
+    filepath = "scenarios_" + now + ".csv"
+    with open(filepath, 'w') as outfile:
+        outfile.write("nodes; start; end; len\n")
+        for k in keys:
+            for intv in scenarios_inter[key]:
+                outfile.write("%s; %d; %d; %d\n" % (k, intv[0], intv[1], (intv[1] - intv[0])))
+
 long_keys = []
 idx = 0
 for n1 in nodes:
@@ -179,9 +188,7 @@ for n1 in nodes:
         intersec_nodes(n1, nodes[idx:])
 
 print_scenarios(long_keys)
-i = intervalles_diff([[1,10]], [[3,15], [6,7]])
-print i
-
+dump_scenarios(long_keys)
 # Find intersection between nodes
 
 
