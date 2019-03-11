@@ -37,7 +37,7 @@ def intervalles_inter(intv_set1, intv_set2):
 def intervalles_diff(intv_set1, intv_set2):
     differences = []
 
-    if len(intv_set1) * len(intv_set2) == 0:
+    if (len(intv_set1) * len(intv_set2)) == 0:
         return []
 
     for intv1 in intv_set1:
@@ -47,24 +47,30 @@ def intervalles_diff(intv_set1, intv_set2):
         while (finalize != True) and (idx > len(intv_set2)):
             intv2 = intv_set2[idx]
             idx += 1
-            # Disjoint
+            # Disjoint, intv1 before intv2
             if (intv1[1] <= intv2[0]):
+                print "Case 1"
                 finalize = True
                 continue
+            # Disjoint, intv2 before intv1
             if (intv2[1] <= intv1[0]):
+                print "Case 2"
                 continue
             # Equal
             if (intv1[0] == intv2[0]) and (intv2[1] == intv1[1]):
+                print "Case 3"
                 finalize = True
                 intv1 = []
                 continue
             # intv1 in intv2
             if (intv1[0] >= intv2[0]) and (intv1[1] <= intv2[1]):
+                print "Case 4"
                 finalize = True
                 intv1 = []
                 continue
             # intv2 in intv1
             if (intv2[0] >= intv1[0]) and (intv2[1] <= intv1[1]):
+                print "Case 5"
                 # intv1[0], intv2[0]
                 # intv2[1], intv1[1]
                 intv_extra = intervalles_diff([[intv2[1], intv1[1]]], intv_set2[idx:])
@@ -72,13 +78,15 @@ def intervalles_diff(intv_set1, intv_set2):
                 finalize = True
                 continue
             # intv2 overlap with intv1
-            if (intv1[0] <= intv2[0]) and (intv1[1] <= intv2[1]):
+            if (intv2[0] <= intv1[1]) and (intv1[1] <= intv2[1]):
+                print "Case 6"
                 intersections.append([intv2[0], intv1[1]])
                 intv1 = [intv1[0], intv2[0]]
                 finalize = True
                 continue
             # intv1 overlap with intv2
-            if (intv2[0] <= intv1[0]) and (intv2[1] <= intv1[1]):
+            if (intv1[0] <= intv2[1]) and (intv2[1] <= intv1[1]):
+                print "Case 7"
                 intv_extra = intervalles_diff([[intv2[1], intv1[1]]], intv_set2[idx:])
                 intv1 = []
                 finalize = True
@@ -160,7 +168,7 @@ def intersec_nodes(key, node_set):
             if len(key_new.split('_')) >= 6:
                 long_keys.append(key_new)
             scenarios_inter[key_new] = new_scenarios
-            scenarios_inter[key] = intervalles_diff(scenarios_inter[key], scenarios_inter[key_new])
+            #scenarios_inter[key] = intervalles_diff(scenarios_inter[key], scenarios_inter[key_new])
             if i < len(nodes):
                 intersec_nodes(key_new, node_set[i:])
 
