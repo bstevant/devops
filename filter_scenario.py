@@ -181,6 +181,12 @@ def dump_scenarios(keys):
             for intv in scenarios_inter[k]:
                 outfile.write("%s; %d; %d; %d\n" % (k, intv[0], intv[1], (intv[1] - intv[0])))
 
+def dump_scenarios_final():
+    now = datetime.now().strftime("%Y-%m-%dT%H%M")
+    filepath = "scenarios_" + now + ".yaml"
+    with open(filepath, 'w') as outfile:
+        yaml.dump(scenarios_final, outfile)
+
 long_keys = []
 idx = 0
 for n1 in nodes:
@@ -188,11 +194,23 @@ for n1 in nodes:
     if idx < len(nodes):
         intersec_nodes(n1, nodes[idx:])
 
+scenarios_final = {}
+for k in long_keys:
+    for intv in scenarios_inter[k]:
+        key = "%d_%d" % (intv[0], intv[1])
+        if key in scenarios_final.keys():
+            continue
+        duration = (intv[1] - intv[0])
+        if duration > 17000:
+            e = {
+                'nodes': k,
+                'start': intv[0],
+                'end': intv[1],
+                'duration': duration
+            }
+            scenarios_final[key] = e
+
 print_scenarios(long_keys)
-dump_scenarios(long_keys)
-# Find intersection between nodes
-
-
-
-#print("%s: %d" % (args.node, len(scenarios_inter)))
+#dump_scenarios(long_keys)
+dump_scenarios_final()
             
