@@ -121,6 +121,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('filepath', type=str, help='dirname')
 parser.add_argument('nodes', type=str, help='comma-sep nodes list')
 parser.add_argument('gap', type=int, help='Gap btw scenario (in s)')
+parser.add_argument('long_key', type=int, help='Min. key len')
 args = parser.parse_args()
 
 
@@ -166,7 +167,7 @@ def intersec_nodes(key, node_set):
         key_new = "%s_%s" % (key, n)
         new_scenarios = intervalles_inter(scenarios_inter[key], scenarios_inter[n])
         if len(new_scenarios) > 0:
-            if len(key_new.split('_')) >= 6:
+            if len(key_new.split('_')) >= args.long_key:
                 long_keys.append(key_new)
             scenarios_inter[key_new] = new_scenarios
             scenarios_inter[key] = intervalles_diff(scenarios_inter[key], scenarios_inter[key_new])
