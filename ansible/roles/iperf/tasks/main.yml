@@ -21,7 +21,7 @@
   docker:
     name: iperf-client
     image: networkstatic/iperf3
-    command: iperf3 -fm -6c {{ iperf_server }}
+    command: -fm -6c {{ iperf_server }}
     detach: false
   when: is_iperf_server is not defined
 
@@ -49,6 +49,7 @@
   register: update_output
   when: (is_iperf_server is not defined) and (update_eiaas is defined)
   delegate_to: localhost
+  ignore_errors: yes
 
 - debug: 
     msg: "{{update_output.stdout_lines}}"

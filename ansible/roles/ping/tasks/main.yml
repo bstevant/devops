@@ -1,55 +1,29 @@
-- name: Start IPerf server container
-  docker:
-    name: iperf-server
-    image: networkstatic/iperf3
-    command: -6s
-    state: started
-    ports: 5201:5201
-  when: (is_iperf2_server is defined) and (ansible_distribution == "Debian")
-
-- name: Iperf package is present
-  apt:
-    name: iperf3
-    state: latest
-  when: ansible_distribution == "Ubuntu"
-  
-- name: Iperf3 server is started
-  command: iperf3 -6Ds 
-  when: (is_iperf2_server is defined) and (ansible_distribution == "Ubuntu")
-
-- name: Start IPerf client
-  command: iperf3 -fm -6c {{ ip }}
-  register: iperf2_output
-  when: is_iperf2_server is defined
-  delegate_to: "{{ iperf2_client }}"
+- name: Test ping RTT
+  shell: ping6 -q -c 10 {{ iperf_server }}
+  register: ping_output
+  when: is_iperf_server is not defined
 
 - debug: 
-    msg: "{{iperf2_output.stdout_lines[-3]}}"
-  when: is_iperf2_server is defined
+    msg: "{{ping_output.stdout_lines[-1]}}"
+  when: is_iperf_server is not defined
 
 - name: Append line in log file
   lineinfile:
-    dest: "logs/iperf/iperf-{{ iperf2_client }}-{{ hostname }}"
-    line: "{{ansible_date_time.epoch}} - {{iperf2_output.stdout_lines[-3]}}"
+    dest: "logs/ping/ping-{{ hostname }}-{{ iperf_server }}"
+    line: "{{ansible_date_time.epoch}} - {{ping_output.stdout_lines[-1]}}"
     create: yes
-  when: is_iperf2_server is defined
+  when: is_iperf_server is not defined
   delegate_to: localhost
 
 - name: Update EIaaS
-  shell: python update_eiaas_link.py download "{{ hostname }}" '"{{iperf2_output.stdout_lines[-3]}}"'
+  shell: python update_eiaas_link.py rtt "{{ hostname }}" '"{{ping_output.stdout_lines[-1]}}"'
   args:
     chdir: eiaas
   register: update_output
-  when: (is_iperf2_server is defined) and (update_eiaas is defined)
+  when: (is_iperf_server is not defined) and (update_eiaas is defined)
   delegate_to: localhost
+  ignore_errors: yes
 
 - debug: 
     msg: "{{update_output.stdout_lines}}"
-  when: (is_iperf2_server is defined) and (update_eiaas is defined)
-
-- name: Stop IPerf server container
-  docker:
-    name: iperf
-    image: networkstatic/iperf3
-    state: absent
-  when: is_iperf2_server is defined
+  when: (is_iperf_server is not defined) and (update_eiaas is defined)
