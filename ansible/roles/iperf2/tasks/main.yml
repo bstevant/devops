@@ -42,6 +42,7 @@
   register: update_output
   when: (is_iperf2_server is defined) and (update_eiaas is defined)
   delegate_to: localhost
+  ignore_errors: yes
 
 - debug: 
     msg: "{{update_output.stdout_lines}}"

@@ -5,8 +5,8 @@ BASEDIR=/vagrant/ansible
 #rm -f $BASEDIR/logs/current
 #ln -s $LOGDIR $BASEDIR/logs/current
 ansible-playbook $BASEDIR/iperf.yml -i $BASEDIR/hosts/iperf
-ansible-playbook $BASEDIR/iperf-stop.yml -i $BASEDIR/hosts/iperf
-ansible-playbook $BASEDIR/iperf2.yml -i $BASEDIR/hosts/iperf2
+#ansible-playbook $BASEDIR/iperf-stop.yml -i $BASEDIR/hosts/iperf
+#ansible-playbook $BASEDIR/iperf2.yml -i $BASEDIR/hosts/iperf2
 #ansible-playbook $BASEDIR/iperf-stop.yml -i $BASEDIR/hosts/iperf2
 #ansible-playbook $BASEDIR/iperf.yml -i $BASEDIR/hosts/iperf3
 #ansible-playbook $BASEDIR/iperf-stop.yml -i $BASEDIR/hosts/iperf3
