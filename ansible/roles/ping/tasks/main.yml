@@ -16,7 +16,8 @@
   delegate_to: localhost
 
 - name: Update EIaaS
-  shell: python update_eiaas_link.py rtt "{{ hostname }}" '"{{ping_output.stdout_lines[-1]}}"'
+#  shell: python update_eiaas_link.py rtt "{{ hostname }}" '"{{ping_output.stdout_lines[-1]}}"'
+  shell: python update_eiaas_link_med.py rtt "{{ hostname }}" "logs/ping/ping-{{ hostname }}-{{ iperf_server }}"
   args:
     chdir: eiaas
   register: update_output
