@@ -1,4 +1,5 @@
 import argparse
+import numpy
 
 parser = argparse.ArgumentParser()
 parser.add_argument('filepath', type=str, help='file to parse')
